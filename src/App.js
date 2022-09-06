@@ -4,6 +4,7 @@ import Shop from './components/Shop/Shop';
 import Review from './components/Review/Review';
 import Inventory from './components/Inventory/Inventory';
 import NotFound from './components/NotFound/NotFound';
+import ProductDetails from './components/ProductDetails/ProductDetails';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/review"><Review></Review></Route>
           <Route path="/inventory"><Inventory></Inventory></Route>
           <Route exact path="/"><Shop></Shop></Route>
+          <Route exact path="/product/:productKey"><ProductDetails></ProductDetails></Route>
           <Route path="*"><NotFound></NotFound></Route>
         </Switch>
       </Router>
