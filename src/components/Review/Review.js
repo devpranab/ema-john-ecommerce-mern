@@ -3,6 +3,7 @@ import './Review.css';
 import {getDatabaseCart, removeFromDatabaseCart} from '../../utilities/databaseManager';
 import fakeData from '../../fakeData';
 import ReviewItem from '../ReviewItem/ReviewItem';
+import Cart from '../Cart/Cart';
 
 const Review = () => {
     const [cart, setCart] = useState([]);
@@ -27,16 +28,21 @@ const Review = () => {
     },[]);
 
     return (
-        <div>
-          <h2>Cart Items: {cart.length}</h2>
-           {
-                cart.map(product => 
-                <ReviewItem 
-                key={product.key}
-                product={product}
-                removeProduct={removeProduct}/>)  
-            }
-        </div>
+        <div className="twin-container">
+             <div className="product-container">
+             <h2>Cart Items: {cart.length}</h2>
+                {
+                    cart.map(product => <ReviewItem 
+                        key={product.key}
+                        product={product}
+                        removeProduct={removeProduct}/>)
+                    
+                }
+             </div>
+             <div className="cart-container">
+                <Cart cart={cart}/>
+             </div>
+            </div>
     );
 };
 

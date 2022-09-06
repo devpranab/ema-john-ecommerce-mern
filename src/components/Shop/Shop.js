@@ -23,7 +23,7 @@ const Shop = () => {
     }
 
     return (
-        <div className="shop-container">
+        <div className="twin-container shop">
            <div className="product-container">
            <ul>
             {
