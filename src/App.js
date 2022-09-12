@@ -9,6 +9,7 @@ import Login from './components/Login/Login';
 import Shipment from './components/Shipment/Shipment';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createContext, useState } from 'react';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 export const UserContext = createContext();
 
@@ -22,9 +23,9 @@ function App() {
         <Switch>
           <Route path="/shop"><Shop></Shop></Route>
           <Route path="/review"><Review></Review></Route>
-          <Route path="/inventory"><Inventory></Inventory></Route>
+          <PrivateRoute path="/inventory"><Inventory></Inventory></PrivateRoute>
           <Route path="/login"><Login></Login></Route>
-          <Route path="/shipment"><Shipment></Shipment></Route>
+          <PrivateRoute path="/shipment"><Shipment></Shipment></PrivateRoute>
           <Route exact path="/"><Shop></Shop></Route>
           <Route exact path="/product/:productKey"><ProductDetails></ProductDetails></Route>
           <Route path="*"><NotFound></NotFound></Route>

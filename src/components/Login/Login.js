@@ -183,7 +183,7 @@ const updateUserName = name => {
   </form>
   <p style={{color: "red"}}>{user.error}</p>
 
-  {user.success && <p style={{color: "blue"}}>Successfully user {newUser ? "created" : "logged in"}!</p>}
+  {user.success && <p style={{color: "green"}}>Successfully user {newUser ? "created" : "logged in"}!</p>}
     </div>
   );
 }
