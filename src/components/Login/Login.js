@@ -2,7 +2,7 @@ import './Login.css';
 import { useState } from 'react';
 import { UserContext} from '../../App';
 import { useContext } from 'react';
-import { Redirect, useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { handleFbSignIn, handleSignOut, handleGoogleSignIn, initLoginFramework, createUserWithEmailAndPassword, signInWithEmailAndPassword } from './LoginManager';
 
 function Login() {
