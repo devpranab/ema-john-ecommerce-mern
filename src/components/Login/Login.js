@@ -2,8 +2,8 @@ import './Login.css';
 import { useState } from 'react';
 import { UserContext} from '../../App';
 import { useContext } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import { handleFbSignIn, handleSignOut, handleGoogleSignIn, initLoginFramework } from './LoginManager';
+import { Redirect, useHistory, useLocation } from 'react-router-dom';
+import { handleFbSignIn, handleSignOut, handleGoogleSignIn, initLoginFramework, createUserWithEmailAndPassword, signInWithEmailAndPassword } from './LoginManager';
 
 function Login() {
   const [newUser, setNewUser] = useState(false);
@@ -28,9 +28,7 @@ function Login() {
   const GoogleSignIn = () => {
   handleGoogleSignIn()
   .then(res => {
-     setUser(res);
-     setLoggedInUser(res);
-     history.replace(from);
+    handleResponse(res, true);
   })
  }
 
@@ -38,25 +36,25 @@ function Login() {
  const FbSignIn = () => {
   handleFbSignIn()
   .then(res => {
-    setUser(res);
-    setLoggedInUser(res);
-    history.replace(from);
+    handleResponse(res, true);
  })
 }
-
 
  // handleSignOut function
   const SignOut = () => {
     handleSignOut()
     .then(res => {
-       setUser(res);
-       setLoggedInUser(res);
+      handleResponse(res, false)
     })
-
   }
 
-
-
+  const handleResponse = (res, redirect) => {
+    setUser(res);
+    setLoggedInUser(res);
+    if(redirect){
+      history.replace(from);
+    }
+  }
 
   const handleChange = (e) => {
     let isFormValid = true;
@@ -79,12 +77,18 @@ function Login() {
   const handleSubmit = (e) => {
   //console.log(user.email, user.password);
   if(newUser && user.email && user.password){
-    // createUserWithEmailAndPassword
-    createUserWithEmailAndPassword();
+    // createUserWithEmailAndPassword import
+    createUserWithEmailAndPassword(user.name, user.email, user.password)
+    .then(res => {
+      handleResponse(res, true);
+   })
   }
   if(!newUser && user.email && user.password){
-   // signInWithEmailAndPassword
-   signInWithEmailAndPassword();
+   // signInWithEmailAndPassword import
+   signInWithEmailAndPassword(user.email, user.password)
+   .then(res => {
+    handleResponse(res, true);
+ })
   }
   e.preventDefault();
 }

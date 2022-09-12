@@ -20,7 +20,7 @@ export const handleGoogleSignIn = () => {
         isSignedIn: true,
         name: displayName,
         email: email,
-        photo: photoURL
+        photo: photoURL,
       }
       return signedInUser;
     })
@@ -35,8 +35,9 @@ export const handleGoogleSignIn = () => {
      return firebase.auth().signInWithPopup(fbProvider)
     .then(function(result){
       const user = result.user;
+      user.success = true;
       return user;
-    })
+    }) 
     .catch(function(error){
 
     })
@@ -59,43 +60,38 @@ export const handleGoogleSignIn = () => {
     })
   }
 
-  /*
-  export const createUserWithEmailAndPassword = () => {
-    firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+  export const createUserWithEmailAndPassword = (name, email, password) => {
+    return firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(res => {
-      console.log(res);
-      const newUserInfo = {...user};
+      const newUserInfo = res.user;
       newUserInfo.error = "";
       newUserInfo.success = true;
-      setUser(newUserInfo);
-      updateUserName(user.name);
+      updateUserName(name);
+      return newUserInfo;
     })
     .catch(error => {
     //Handle Errors here
-    const newUserInfo = {...user};
+    const newUserInfo = {};
     newUserInfo.error = error.message;
     newUserInfo.success = false;
-    setUser(newUserInfo);
+    return newUserInfo;
     });
   }
 
-  export const signInWithEmailAndPassword = () => {
-    firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+  export const signInWithEmailAndPassword = (email, password) => {
+    return firebase.auth().signInWithEmailAndPassword(email, password)
     .then(res => {
-      const newUserInfo = {...user};
+      const newUserInfo = res.user;
       newUserInfo.error = "";
       newUserInfo.success = true;
-      setUser(newUserInfo);
-      setLoggedInUser(newUserInfo);
-      history.replace(from);
-      console.log("sign in user info:", res.user);
+      return newUserInfo;
     })
     .catch(error => {
       //Handle Errors here
-      const newUserInfo = {...user};
+      const newUserInfo = {};
       newUserInfo.error = error.message;
       newUserInfo.success = false;
-      setUser(newUserInfo);
+      return newUserInfo;
       });
   }
 
@@ -112,4 +108,3 @@ export const handleGoogleSignIn = () => {
       console.log(error);
     })
   }
-  */
