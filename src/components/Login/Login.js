@@ -1,10 +1,12 @@
 import './Login.css';
 import { useState } from 'react';
+import { UserContext} from '../../App';
 import firebase from "firebase/app";
 import "firebase/auth";
 
 // Initialize Firebase
 import firebaseConfig from './firebase.config.js';
+import { useContext } from 'react';
 firebase.initializeApp(firebaseConfig);
 
 function Login() {
@@ -18,6 +20,8 @@ function Login() {
     error: '',
     success: false
   });
+
+  const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
 
   const googleProvider = new firebase.auth.GoogleAuthProvider();
@@ -118,6 +122,7 @@ function Login() {
       newUserInfo.error = "";
       newUserInfo.success = true;
       setUser(newUserInfo);
+      setLoggedInUser(newUserInfo);
       console.log("sign in user info:", res.user);
     })
     .catch(error => {

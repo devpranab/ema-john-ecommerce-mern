@@ -8,10 +8,15 @@ import ProductDetails from './components/ProductDetails/ProductDetails';
 import Login from './components/Login/Login';
 import Shipment from './components/Shipment/Shipment';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { createContext, useState } from 'react';
+
+export const UserContext = createContext();
 
 function App() {
+  const [loggedInUser, setLoggedInUser] = useState({});
   return (
-    <div>
+    <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
+      <h4>Email : {loggedInUser.email}</h4>
       <Header />
     <Router>
         <Switch>
@@ -25,7 +30,7 @@ function App() {
           <Route path="*"><NotFound></NotFound></Route>
         </Switch>
       </Router>
-    </div>
+    </UserContext.Provider>
   );
 }
 
