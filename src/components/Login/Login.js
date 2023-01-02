@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { UserContext} from '../../App';
 import { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { handleFbSignIn, handleSignOut, handleGoogleSignIn, initLoginFramework, createUserWithEmailAndPassword, signInWithEmailAndPassword } from './LoginManager';
+import { handleFbSignIn, handleSignOut, handleGoogleSignIn, initLoginFramework, createUserWithEmailAndPassword, signInWithEmailAndPassword, resetPassword } from './LoginManager';
 
 function Login() {
   const [newUser, setNewUser] = useState(false);
@@ -126,6 +126,7 @@ function Login() {
     <br />
     <input type="submit" value={newUser ? "Sign-up" : "Sign-in"} />
   </form>
+  <button onClick={() => resetPassword(user.email)}>Forget or Reset Password</button>
   <p style={{color: "red"}}>{user.error}</p>
 
   {user.success && <p style={{color: "green"}}>Successfully user {newUser ? "created" : "logged in"}!</p>}

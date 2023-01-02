@@ -67,6 +67,7 @@ export const handleGoogleSignIn = () => {
       newUserInfo.error = "";
       newUserInfo.success = true;
       updateUserName(name);
+      verifyEmail();
       return newUserInfo;
     })
     .catch(error => {
@@ -106,5 +107,26 @@ export const handleGoogleSignIn = () => {
     })
     .catch(function(error){
       console.log(error);
+    })
+  }
+
+  const verifyEmail = () => {
+    var user = firebase.auth().currentUser;
+
+    user.sendEmailVerification().then(function(){
+      //Email sent.
+    })
+    .catch(function(error) {
+      //An error happened
+    });
+  }
+
+  export const resetPassword = email => {
+    var auth = firebase.auth();
+    auth.sendPasswordResetEmail(email).then(function() {
+      //Email Sent.
+    })
+    .catch(function(error) {
+      //An error happened
     })
   }
