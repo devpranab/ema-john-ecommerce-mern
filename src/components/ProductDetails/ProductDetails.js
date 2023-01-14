@@ -7,6 +7,7 @@ const ProductDetails = () => {
     const { productKey } = useParams();
     const product = fakeData.find(product => product.key === productKey);
     //console.log(product);
+    document.title = "Product Details";
     return (
         <div>
             <h1>{productKey} Your Product Details</h1>

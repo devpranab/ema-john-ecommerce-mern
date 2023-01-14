@@ -12,6 +12,7 @@ const Shop = () => {
     const [products, setProducts] = useState(first10);
     const [cart, setCart] = useState([]);
 
+    document.title = "Shops";
     //Access from local storage
     useEffect(() => {
         //cart
